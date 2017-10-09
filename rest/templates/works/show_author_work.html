@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Author Works</title>
+  </head>
+  <body>
+    Logged in as {{ member.firstname }}. <a href="/logout">Logout</a>.
+    <h1>{{ author.firstname }} {{ author.lastname }}'s Works</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Year Published</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for work in works %}
+        <tr>
+          <td>{{ work.id }}</td>
+          <td><a href="{% url "show_work" workid=work.id %}">{{ work.title }}</a></td>
+          <td>{{ work.author.firstname }} {{ work.author.lastname }}</td>
+          <td>{{ work.year }}</td>
+          <td>
+            <a href="{% url "show_work" workid=work.id %}">Read More</a> |
+            <a href="{% url "worksedit" workid=work.id %}">Edit</a> |
+            <a href="{% url "delete_work" workid=work.id %}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <a href="/works/new">Add Another Work</a>
+    <br>
+    <a href="{% url "show" id=author.id %}">Return to Author</a>
+    <br>
+    <a href="/works">Return to All Works</a>
+
+
+  </body>
+</html>
